@@ -13,7 +13,9 @@ DOWNLOADS="http://sourceforge.net/projects/netgen-mesher/files/${PN}/${PV}/${PNV
 LICENCES="LGPL-2.1"
 SLOT="0"
 PLATFORMS="~amd64"
-MYOPTIONS=""
+MYOPTIONS="
+    parallel [[ description = [ load mesh and handle distribution with MPI ] ]]
+"
 
 RESTRICT="test"
 
@@ -21,6 +23,9 @@ DEPENDENCIES="
     build:
     sys-devel/automake
     build+run:
+    parallel? (
+        sys-cluster/openmpi
+    )
 	dev-lang/tk
 	dev-lang/tcl
 	dev-tcl/Togl[=1.7]
@@ -34,7 +39,7 @@ WORK=${WORKBASE}/${PNV}
 
 AT_M4DIR=( m4 )
 
-
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( parallel )
 DEFAULT_SRC_CONFIGURE_PARAMS=(
     --enable-threads
     # --with-tcl=/usr/${LIBDIR}
