@@ -1,0 +1,58 @@
+# Copyright 2014 Christoph Lehrenfeld
+# Distributed under the terms of the GNU General Public License v2
+
+require autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.13 ] ]
+require sourceforge [ suffix=tar.gz ]
+
+SUMMARY="NGSove Finite Element Library"
+PN="ngsolve"
+PV="5.3"
+PNV="ngsolve-5.3.1"
+DOWNLOADS="http://sourceforge.net/projects/ngsolve/files/${PN}/${PV}/${PNV}.tar.gz"
+
+LICENCES="LGPL-2.1"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+RESTRICT="test"
+
+DEPENDENCIES="
+    build:
+    sys-devel/automake
+    build+run:
+	dev-lang/tk
+	dev-lang/tcl
+	dev-tcl/Togl[=1.7]
+    sci-apps/netgen
+"
+    # run:
+    # dev-tcl/tix
+
+BUGS_TO="christoph.lehrenfeld@rwth-aachen.de"
+
+WORK=${WORKBASE}/${PNV}
+
+AT_M4DIR=( m4 )
+
+
+DEFAULT_SRC_CONFIGURE_PARAMS=(
+    --enable-threads
+    # --with-tcl=/usr/${LIBDIR}
+    # --with-tk=/usr/${LIBDIR}
+    # --with-tclinclude=/usr/include
+#     --with-togl=/usr/${LIBDIR}/Togl1.7
+# ogl=/usr/include
+)
+
+src_install() {
+    default
+    # ln -s /usr/${LIBDIR}/Togl1.7/libTogl1.7.so "${IMAGE}"/usr/${LIBDIR}/libTogl1.7.so
+    edo find "${IMAGE}"/ -type d -empty -delete
+
+#     hereenvd 71netgen <<EOF
+# NETGENDIR=/usr/bin
+# EOF
+
+}
+
