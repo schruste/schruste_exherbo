@@ -1,0 +1,33 @@
+# Copyright 2014 Christoph Lehrenfeld
+# Distributed under the terms of the GNU General Public License v2
+
+require sourceforge [ suffix=tar.gz ]
+
+SUMMARY="Displays presentation slides"
+DOWNLOADS="http://sourceforge.net/projects/impressive/files/${PN}/${PV}/${PNV}.tar.gz"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    run:
+	app-text/pdftk
+	dev-python/Imaging
+	dev-python/pygame
+	dev-python/PyOpenGL
+	x11-apps/xdg-utils
+	x11-apps/xrandr
+    app-text/ghostscript
+	fonts/dejavu
+"
+
+BUGS_TO="christoph.lehrenfeld@rwth-aachen.de"
+
+src_install() {
+    doman impressive.1
+    edo mv impressive.py impressive
+    dobin impressive
+}
+
