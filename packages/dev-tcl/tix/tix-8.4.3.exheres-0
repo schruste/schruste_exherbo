@@ -1,0 +1,62 @@
+# Copyright 2014 Christoph Lehrenfeld
+# Distributed under the terms of the GNU General Public License v2
+
+require autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.13 ] ]
+require sourceforge [ suffix=tar.gz ]
+
+PNV="Tix${PV}"
+
+SUMMARY="A widget library for Tcl/Tk"
+HOMEPAGE="http://tix.sourceforge.net/"
+DOWNLOADS="http://sourceforge.net/projects/tix/files/${PN}/${PV}/${PNV}-src.tar.gz"
+
+LICENCES="togl"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+RESTRICT="test"
+
+DEPENDENCIES="
+    build:
+    sys-devel/automake
+    build+run:
+	dev-lang/tcl
+    dev-lang/tk
+    x11-libs/libX11
+    x11-libs/libXau
+    x11-libs/libXdmcp
+"
+#   x11-libs/libX11
+#	        x11-libs/libXau
+#	        x11-libs/libXdmcp"
+
+BUGS_TO="christoph.lehrenfeld@rwth-aachen.de"
+
+WORK=${WORKBASE}/${PNV}
+
+AT_M4DIR=( m4 )
+
+DEFAULT_SRC_CONFIGURE_PARAMS=(
+    --enable-threads
+    --with-tcl=/usr/${LIBDIR}
+    --with-tk=/usr/${LIBDIR}
+    --with-tclinclude=/usr/include
+)
+# DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
+#     debug
+#     startup-notification
+#     "xcomposite compositor"
+# )
+
+# src_prepare() {
+#     autotools_src_prepare
+# }
+
+
+src_install() {
+    default
+    # ln -s /usr/${LIBDIR}/Togl1.7/libTogl1.7.so "${IMAGE}"/usr/${LIBDIR}/libTogl1.7.so
+    edo find "${IMAGE}"/ -type d -empty -delete
+}
+
