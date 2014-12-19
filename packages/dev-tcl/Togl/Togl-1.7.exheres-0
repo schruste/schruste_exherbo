@@ -1,0 +1,45 @@
+# Copyright 2014 Christoph Lehrenfeld
+# Distributed under the terms of the GNU General Public License v2
+
+# For Netgen/NGSolve the 'not best' version 1.7 is needed
+# * do this with slots?
+# * (how to) add opengl(mesa) dependency?? glu pulls it anyway...
+#
+
+require autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.13 ] ]
+require sourceforge [ suffix=tar.gz ]
+
+SUMMARY="A Tk OpenGL widget"
+DOWNLOADS="http://sourceforge.net/projects/togl/files/${PN}/${PV}/${PNV}.tar.gz"
+
+LICENCES="togl"
+SLOT="0"
+PLATFORMS="~amd64"
+MYOPTIONS=""
+
+RESTRICT="test"
+
+DEPENDENCIES="
+    build:
+    sys-devel/automake
+    build+run:
+	dev-lang/tk
+	dev-lang/tcl
+    x11-dri/glu
+    x11-dri/mesa
+    x11-libs/libXmu
+"
+
+BUGS_TO="christoph.lehrenfeld@rwth-aachen.de"
+
+WORK=${WORKBASE}/${PN}-${PV}
+
+AT_M4DIR=( m4 )
+
+src_install() {
+    default
+    ln -s /usr/${LIBDIR}/Togl1.7/libTogl1.7.so "${IMAGE}"/usr/${LIBDIR}/libTogl1.7.so
+    ln -s /usr/${LIBDIR}/libTogl1.7.so "${IMAGE}"/usr/${LIBDIR}/libTogl.so
+    edo find "${IMAGE}"/ -type d -empty -delete
+}
+
