@@ -56,7 +56,7 @@ install_one_multibuild() {
 
     dodoc "${WORKBASE}"/${MY_PNV}/{ChangeLog*,changes,README}
 
-    hereenvd 99tcl <<EOF
+    hereenvd 49tcl <<EOF
 TCLLIBPATH="\${TCLLIBPATH} /usr/${LIBDIR}"
 EOF
 
