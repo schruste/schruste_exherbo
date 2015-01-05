@@ -23,8 +23,8 @@ DEPENDENCIES="
     build:
     sys-devel/automake
     build+run:
-	dev-lang/tk
-	dev-lang/tcl
+	dev-lang/tk[>=8.5.11-r2]
+	dev-lang/tcl[>=8.5.11-r1]
     x11-dri/glu
     x11-dri/mesa
     x11-libs/libXmu
