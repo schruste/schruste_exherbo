@@ -23,13 +23,15 @@ DEPENDENCIES="
     build:
     sys-devel/automake
     build+run:
-    parallel? (
-        sys-cluster/openmpi
-    )
 	dev-lang/tk
 	dev-lang/tcl
 	dev-tcl/Togl[=1.7]
 "
+
+    # parallel? (
+    #     sys-cluster/openmpi
+    # )
+
     # run:
     # dev-tcl/tix
 
@@ -39,9 +41,9 @@ WORK=${WORKBASE}/${PNV}
 
 AT_M4DIR=( m4 )
 
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( parallel )
+# DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( parallel )
 DEFAULT_SRC_CONFIGURE_PARAMS=(
-    --enable-threads
+    # --enable-threads
     # --with-tcl=/usr/${LIBDIR}
     # --with-tk=/usr/${LIBDIR}
     # --with-tclinclude=/usr/include
