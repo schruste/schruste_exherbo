@@ -36,9 +36,9 @@ AT_M4DIR=( m4 )
 
 DEFAULT_SRC_CONFIGURE_PARAMS=(
     --enable-threads
+    --with-tclinclude=/usr/include/tcl/tcl-private
     --with-tcl=/usr/${LIBDIR}
     --with-tk=/usr/${LIBDIR}
-    --with-tclinclude=/usr/include
 )
 
 src_install() {

@@ -42,12 +42,20 @@ DEFAULT_SRC_CONFIGURE_PARAMS=( --enable-threads )
 
 install_one_multibuild() {
     default
-    nonfatal emake DESTDIR="${IMAGE}" install-private-headers || die "emake install-private-headers failed"
+
+#    insinto /usr/${LIBDIR}/tcl${PV}/tcl-private/unix
+    insinto /usr/include/tcl/tcl-private/unix
+    doins ${WORK}/../unix/*.h
+#    insinto /usr/${LIBDIR}/tcl${PV}/tcl-private/generic
+    insinto /usr/include/tcl/tcl-private/generic
+    doins  ${WORK}/../generic/*.h
+    #rm -f "${ED}"/usr/${mylibdir}/tcl${v1}/include/generic/{tcl,tclDecls,tclPlatDecls}.h || die
 
     # Fix the tclConfig.sh such that /usr/include/tclInt.h can be found...
-    edo sed -e "s,^\(TCL_SRC_DIR='\).*\('\),\1/usr/include\2," \
+    edo sed -e "s,^\(TCL_SRC_DIR='\).*\('\),\1/usr/include/tcl/tcl-private\2," \
             -i "${IMAGE}"/usr/${LIBDIR}/tclConfig.sh
-    dosym /usr/include/ /usr/include/generic
+
+    # nonfatal emake DESTDIR="${IMAGE}" install-private-headers || die "emake install-private-headers failed"
 
     keepdir /usr/${LIBDIR}/${PN}8/8.3/
 
@@ -59,6 +67,5 @@ install_one_multibuild() {
     hereenvd 49tcl <<EOF
 TCLLIBPATH="\${TCLLIBPATH} /usr/${LIBDIR}"
 EOF
-
 }
 
