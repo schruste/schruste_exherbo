@@ -14,7 +14,10 @@ MYOPTIONS=""
 DEPENDENCIES="
     run:
 	app-text/pdftk
-	dev-python/Imaging
+ || (
+     dev-python/Imaging
+     dev-python/Pillow
+ )
 	dev-python/pygame
 	dev-python/PyOpenGL
 	x11-apps/xdg-utils
